@@ -1,14 +1,19 @@
 import { useRef } from "react";
 
 const ChatForm = ({ chatHistory, setChatHistory,  generateBotResponse}) => {
-const inputRef = useRef() 
+const inputRef = useRef(); 
 
-const handelFormSubmit = () => {
-   
-    const userMessage = inputRef.current.value.trim()
+const handelFormSubmit = (e) => {
+  
+   e.preventDefault();
+    const userMessage = inputRef.current.value.trim();
     if(!userMessage) return;
 
+    
+
     inputRef.current.value = "";
+
+
 
 // Update chat history with the user message
    setChatHistory((history) => [...history, {role: "user", text: userMessage }]);
@@ -23,12 +28,15 @@ const handelFormSubmit = () => {
   generateBotResponse([...chatHistory, {role: "user", text: userMessage }]);
 },600);
 
+
+
 }
 
   return (
     <form action="#" className="chat-form" onSubmit={handelFormSubmit}>
     <input  ref={inputRef}  type="text" placeholder="Message..." className="message-input" required />
-    <button className="material-symbols-rounded">arrow_upward</button>
+    <button className="material-symbols-rounded">
+    arrow_upward</button>
   </form>
   )
 }
